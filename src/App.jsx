@@ -93,29 +93,29 @@ const App = () => {
     if (money >= teammate.price) {
       setTeam([...team, teammate]);
       const newZombieFighters = [...zombieFighters];
-      setZombieFighters(newZombieFighters.filter(fighter => fighter !== teammate));
+      setZombieFighters(newZombieFighters.filter(fighter => fighter.id !== teammate.id));
       setMoney(money - teammate.price);
     } else {
-      console.log('too poor!');
+      alert('too poor!');
     };
   };
 
   const handleRemoveFighter = (teammate) => {
     setZombieFighters([...zombieFighters, teammate]);
     const newTeam = [...team];
-    setTeam(newTeam.filter(fighter => fighter !== teammate));
+    // setTeam(newTeam.filter(fighter => fighter.id !== teammate.id));
+    newTeam.splice(newTeam.indexOf(teammate), 1);
+    setTeam(newTeam);
     setMoney(money + teammate.price);
-
   };
 
   const totalStrength = team.reduce((accumulator, teammate) => {
-    return accumulator += teammate.strength;
+    return accumulator + teammate.strength;
   }, 0);
 
   const totalAgility = team.reduce((accumulator, teammate) => {
     return accumulator += teammate.agility;
   }, 0);
-
 
   return (
     <>
